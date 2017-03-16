@@ -1,10 +1,19 @@
 <ion-view view-title="Novo">
-  <ion-content>
+  <ion-content ng-controller="NovoCtrl">
+
+    <div class="padding"></div>
+
     <ion-list>
       <label class="item item-input item-staked-label">
       <span class="input-label">Tarefa</span>
-      <input type="text" placeholder="Digite sua tarefa" />
+      <input type="text" placeholder="Digite sua tarefa" ng-model="texto"/>
     </label>
     </ion-list>
+
+    <div class="padding">
+      <!-- Não pode ser anta e esquecer de () nos métodos ;) -->
+      <button class="button button-block button-balanced" ng-click="salvar()">Salvar</button>
+    </div>
+
   </ion-content>
 </ion-view>

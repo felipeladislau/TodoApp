@@ -5,9 +5,26 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('todoapp', ['ionic']);
 
+
+//Variavel vetor fora dos controlers para poder receber a variavel globalmente.
+var tarefas = [
+  {
+    "texto": "Realizar as atividades do curso",
+    "data": new Date(),
+    "feita": false
+  },
+  {
+    "texto": "Passear com o cachorro",
+    "data": new Date(),
+    "feita": true
+  }
+];
+
 // Esta funcao das configuracoes define o stateprovider como list, os parametros são as views e os lugares que elas estão.
+// Aqui usamos o método stateprovider para poder passar o estado, e o urlrouter para definir a rota.
 app.config(function($stateProvider, $urlRouterProvider){
 
+// Cada um desses é um estado (View), onde o nome LIST é o nome que usamos no código, URL é o caminho e templateUrl é o local do arquivo.
   $stateProvider.state('list', {
     url: '/list',
     templateUrl: 'templates/lista.html'
@@ -43,24 +60,16 @@ app.run(function($ionicPlatform) {
 });
 
 
+
+
+
 app.controller('ListaCtrl', function($scope) {
   // Código da função Lista do Controler.
   // Controler é responsável por controlar o app.
   // O controller é tipo a classe que criou aqui, que vai poder ser definida em um ponto do html,
   // Ai tem as funções dentro, que são a sub-classe que da para adicionar.
 
-  $scope.tarefas = [
-    {
-      "texto": "Realizar as atividades do curso",
-      "data": new Date(),
-      "feita": false
-    },
-    {
-      "texto": "Passear com o cachorro",
-      "data": new Date(),
-      "feita": true
-    }
-  ];
+  $scope.tarefas = tarefas;
 
 
   $scope.concluir = function(indice){
@@ -72,5 +81,29 @@ app.controller('ListaCtrl', function($scope) {
   }
 
   $scope.mensagem = "Hello World!";
+
+});
+
+
+
+
+
+
+// Usamos APP para criar um controler, ele vai controlar a tela novo, o scope é o escopo da tela, as variaveis da tela e tal.
+// Também usamos o método STATE, ele nos permite definir o estado (view) que queremos carregar
+app.controller('NovoCtrl', function($scope, $state){
+
+  $scope.salvar = function(){
+
+    var tarefa = {
+      "texto": $scope.texto,
+      "data": new Date(),
+      "feita": false
+    };
+
+    tarefas.push(tarefa);
+    $state.go('list');
+
+  }
 
 });

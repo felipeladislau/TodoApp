@@ -1,0 +1,21 @@
+<ion-view view-title="Tarefas">
+
+  <ion-nav-buttons side="right">
+    <a href="#/new" class="button button-icon ion-plus"></a>
+  </ion-nav-buttons>
+
+<ion-content ng-controller="ListaCtrl">
+  <ion-list>
+    <ion-item ng-repeat="t in tarefas">
+    <!-- O NG do começo fala que é do Angular, repeat para repetir, o t é uma variável e o IN inplica na repetição, tipo foreach. -->
+    <!-- ng-hide esconde quem atende ao requisito (Definido como true), e o show faz o contrário. -->
+
+    {{t.texto}}
+    <ion-option-button class="button-positive" ng-click="concluir($index)">Concluir</ion-option-button>
+    <ion-option-button class="button-assertive" ng-click="apagar($index)">Apagar</ion-option-button>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+</ion-view>

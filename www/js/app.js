@@ -5,6 +5,25 @@
 // the 2nd parameter is an array of 'requires'
 var app = angular.module('todoapp', ['ionic']);
 
+// Esta funcao das configuracoes define o stateprovider como list, os parametros são as views e os lugares que elas estão.
+app.config(function($stateProvider, $urlRouterProvider){
+
+  $stateProvider.state('list', {
+    url: '/list',
+    templateUrl: 'templates/lista.html'
+  });
+
+  $stateProvider.state('new', {
+    url: '/new',
+    templateUrl: 'templates/novo.html'
+  });
+
+  // o urlrouter define a rota, o otherwie significa que se nada for apontado, carrega essa mesmo.
+  $urlRouterProvider.otherwise('/list');
+
+
+});
+
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -29,7 +48,7 @@ app.controller('ListaCtrl', function($scope) {
   // Controler é responsável por controlar o app.
   // O controller é tipo a classe que criou aqui, que vai poder ser definida em um ponto do html,
   // Ai tem as funções dentro, que são a sub-classe que da para adicionar.
-  
+
   $scope.tarefas = [
     {
       "texto": "Realizar as atividades do curso",
@@ -42,6 +61,15 @@ app.controller('ListaCtrl', function($scope) {
       "feita": true
     }
   ];
+
+
+  $scope.concluir = function(indice){
+    $scope.tarefas[indice].feita = true;
+  }
+
+  $scope.apagar = function(indice){
+    $scope.tarefas.splice(indice);
+  }
 
   $scope.mensagem = "Hello World!";
 
